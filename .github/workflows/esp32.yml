@@ -1,4 +1,4 @@
-name: ESP-IDF CI Build
+name: ESP-IDF ESP32 Build
 
 on:
   push:
@@ -12,9 +12,6 @@ jobs:
     
     container:
       image: espressif/idf:release-v5.2
-      # Esto fuerza a que GitHub Actions use el entrypoint oficial de Espressif
-      # el cual exporta automáticamente idf.py al PATH del sistema
-      options: --entrypoint /opt/esp/entrypoint.sh
 
     steps:
       - name: Checkout repository
@@ -24,5 +21,9 @@ jobs:
 
       - name: Initialize and Build Project
         run: |
+          # Activamos el entorno de ESP-IDF usando su entrypoint oficial
+          . /opt/esp/entrypoint.sh
+          
+          # Ahora idf.py está disponible en el PATH
           idf.py set-target esp32
           idf.py build
