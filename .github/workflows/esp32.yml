@@ -30,10 +30,10 @@ jobs:
           #idf.py set-target esp32
           #idf.py build
 
-          - name: Upload Build Artifacts
-            uses: actions/upload-artifact@v4
-            with:
-              name: esp32-hello-world-example
-              path: |
-                hello_world
-              retention-days: 2
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: esp32-hello-world-example
+          path: |
+            hello_world
+          retention-days: 2
