@@ -10,19 +10,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # Usamos el contenedor oficial de Docker de Espressif. 
-    # Puedes cambiar 'release-v5.2' por la versión que use tu proyecto (ej. v5.3, latest)
-    container: espressif/idf:release-v5.2
+    container:
+      image: espressif/idf:release-v5.2
+      # Esto fuerza a que GitHub Actions use el entrypoint oficial de Espressif
+      # el cual exporta automáticamente idf.py al PATH del sistema
+      options: --entrypoint /opt/esp/entrypoint.sh
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: 'recursive' # Clona submódulos si usas componentes externos
+          submodules: 'recursive'
 
       - name: Initialize and Build Project
         run: |
-          # El contenedor ya tiene Python, CMake, Ninja y las herramientas del compilador listas.
-          # Solo le decimos qué chip usamos y compilamos.
           idf.py set-target esp32
           idf.py build
