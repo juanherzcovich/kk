@@ -1,4 +1,4 @@
-name: ESP-IDF ESP32 Build
+name: espressif/idf:release-v5.2
 
 on:
   push:
