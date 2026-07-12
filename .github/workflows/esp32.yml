@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04-arm
     
     container:
       image: espressif/idf:release-v5.2
@@ -21,6 +21,7 @@ jobs:
 
       - name: Initialize and Build Project
         run: |
+          curl --version
           # Activamos el entorno de ESP-IDF usando su entrypoint oficial
           . /opt/esp/entrypoint.sh
           
