@@ -1,0 +1,28 @@
+name: ESP-IDF CI Build
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    # Usamos el contenedor oficial de Docker de Espressif. 
+    # Puedes cambiar 'release-v5.2' por la versión que use tu proyecto (ej. v5.3, latest)
+    container: espressif/idf:release-v5.2
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive' # Clona submódulos si usas componentes externos
+
+      - name: Initialize and Build Project
+        run: |
+          # El contenedor ya tiene Python, CMake, Ninja y las herramientas del compilador listas.
+          # Solo le decimos qué chip usamos y compilamos.
+          idf.py set-target esp32
+          idf.py build
